@@ -26,7 +26,7 @@ class ViewController: UIViewController {
             fetchimage()
         }
     }
-
+    //Use the intrinsic size of imageview property to clear warnings 
     @IBOutlet weak var imageVIew: UIImageView!
     
     func fetchimage() {
