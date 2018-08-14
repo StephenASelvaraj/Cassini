@@ -10,16 +10,41 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var imageURL : URL? {
+        didSet {
+            imageVIew.image = nil
+            if view.window != nil {
+                fetchimage()
+            }
+
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if imageVIew.image == nil {
+            fetchimage()
+        }
+    }
+
+    @IBOutlet weak var imageVIew: UIImageView!
+    
+    func fetchimage() {
+        if let url = imageURL {
+       
+            let urlContents = try? Data(contentsOf: url)
+            if let imageData = urlContents {
+                imageVIew.image = UIImage(data: imageData)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if imageURL == nil {
+            imageURL = demoURLs.pix
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
 }
 
